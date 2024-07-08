@@ -41,7 +41,18 @@ String teststr = getUserInput();
 }
 
 String getUserInput(){
-  String teststr = Serial.readString();  //read until timeout
+  String teststr = String();  //read until timeout
+  while (true) {
+    if (Serial.available() >0){
+      char userPressed = char(Serial.read());
+
+      if(userPressed == '\n') {
+        break;
+      } else {
+       teststr += userPressed;
+      }
+    }
+  }
     teststr.trim();                        // remove any \r \n whitespace at the end of the String
   Serial.println(teststr);
   return teststr;
@@ -51,3 +62,5 @@ String getUserInput(){
 int myFunction(int x, int y) {
   return x + y;
 }
+
+// gr
