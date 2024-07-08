@@ -2,6 +2,7 @@
 
 // put function declarations here:
 int myFunction(int, int);
+String getUserInput();
 
 void setup() {
   // put your setup code here, to run once:
@@ -11,12 +12,39 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000);
-  digitalWrite(13, LOW);
-  delay(1000);
-  Serial.print("Feelin Lucky");
-  Serial.println(" Punk?");
+  // digitalWrite(LED_BUILTIN, HIGH);
+  // delay(1000);
+  // digitalWrite(13, LOW);
+  // delay(1000);
+
+
+  Serial.println("Enter data:");
+
+  while (Serial.available() == 0) {}     //wait for data available
+
+String teststr = getUserInput();
+
+  if (teststr == "red" || teststr == "blue" || teststr == "yellow") {
+
+    Serial.println("A primary color");
+
+  } else {
+
+    Serial.println("Something else");
+
+  }
+
+    
+  // Serial.print("Feelin Lucky");
+  // Serial.println(" Punk?");
+
+}
+
+String getUserInput(){
+  String teststr = Serial.readString();  //read until timeout
+    teststr.trim();                        // remove any \r \n whitespace at the end of the String
+  Serial.println(teststr);
+  return teststr;
 }
 
 // put function definitions here:
