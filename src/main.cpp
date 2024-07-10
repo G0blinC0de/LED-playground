@@ -1,6 +1,11 @@
 #include <Arduino.h>
+#include <FastLED.h>
 #define pin_button 5
+#define NUM_LEDS 21
+#define DATA_PIN 3
+CRGB leds[NUM_LEDS];
 
+int redValue = 0;
 int inPin = 5;
 int ledPin = 13;
 int val = 0;
@@ -13,8 +18,8 @@ void setup() {
 
   // LED_BUILTIN = pin 13, built in LED
   pinMode(LED_BUILTIN, OUTPUT);
+  FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS); 
 
-// 
   pinMode(pin_button, INPUT_PULLUP);
   Serial.begin(9600);
 }
@@ -26,11 +31,27 @@ void loop() {
   // digitalWrite(13, LOW);
   // delay(1000);
 
-val = digitalRead(inPin);
-digitalWrite(ledPin, val);
+// val = digitalRead(inPin);
+// digitalWrite(ledPin, val);
 
+    // leds[0] = CRGB( 50, 100, 150); 
+    // leds[1] = CRGB::Red;
+    // FastLED.show(); 
+    // delay(2000);
+    // leds[0] = CRGB::Black;
+    // leds[1] = CRGB::Black; 
+    // FastLED.show(); 
+    // delay(2000);
 
-  
+  leds[0] = CRGB( redValue, 0, 0);
+  FastLED.show();
+  delay(100);
+
+  redValue ++;
+
+  if(redValue > 150){
+    redValue = 0;
+  }
 
 
 //   Serial.println("Enter data:");
@@ -78,4 +99,3 @@ int myFunction(int x, int y) {
   return x + y;
 }
 
-// gr
