@@ -7,7 +7,6 @@ CRGB leds[NUM_LEDS];
 
 int brightValue = 0;
 
-// int counter = 0;
 bool increasing = true;
 
 // int inPin = 5;
@@ -16,6 +15,7 @@ bool increasing = true;
 // put function declarations here:
 // int myFunction(int, int);
 // String getUserInput();
+
 
 void setup()
 {
@@ -31,14 +31,14 @@ void setup()
 void loop()
 {
 
+// Built-In LED Blink on and off
   // digitalWrite(LED_BUILTIN, HIGH);
   // delay(1000);
   // digitalWrite(13, LOW);
   // delay(1000);
 
-  // val = digitalRead(inPin);
-  // digitalWrite(ledPin, val);
 
+  // Blinking LED strip with color
   // leds[0] = CRGB( 50, 100, 150);
   // leds[1] = CRGB::Red;
   // FastLED.show();
@@ -48,46 +48,42 @@ void loop()
   // FastLED.show();
   // delay(2000);
 
-  leds[0] = CHSV(HUE_RED, 255, brightValue);
-  leds[1] = CHSV(HUE_GREEN, 255, brightValue);
-  leds[2] = CHSV(HUE_BLUE, 255, brightValue);
-  leds[3] = CHSV(HUE_RED, 255, brightValue);
-  leds[4] = CHSV(HUE_GREEN, 255, brightValue);
-  leds[4] = CHSV(HUE_BLUE, 255, brightValue);
-  FastLED.show();
-  delay(100);
 
-  if (increasing)
-  {
-    brightValue++;
-    if (brightValue == 150)
-    {
-      increasing = false;
-    }
-  }
-  else
-  {
-    brightValue--;
-    if (brightValue == 0)
-    {
-      increasing = true;
-    }
-  }
+  // Rainbow LED brightness/dimmer
+  // leds[0] = CHSV(HUE_RED, 255, brightValue);
+  // leds[1] = CHSV(HUE_GREEN, 255, brightValue);
+  // leds[2] = CHSV(HUE_BLUE, 255, brightValue);
+  // leds[3] = CHSV(HUE_RED, 255, brightValue);
+  // leds[4] = CHSV(HUE_GREEN, 255, brightValue);
+  // leds[4] = CHSV(HUE_BLUE, 255, brightValue);
+  // FastLED.show();
+  // delay(100);
+  // if (increasing)
+  // {
+  //   brightValue++;
+  //   if (brightValue == 150)
+  //   {
+  //     increasing = false;
+  //   }
+  // }
+  // else
+  // {
+  //   brightValue--;
+  //   if (brightValue == 0)
+  //   {
+  //     increasing = true;
+  //   }
+  // }
 
+
+  // Color Tester Handler
   //   Serial.println("Enter data:");
-
   //   while (Serial.available() == 0) {}     //wait for data available
-
   // String teststr = getUserInput();
-
   //   if (teststr == "red" || teststr == "blue" || teststr == "yellow") {
-
   //     Serial.println("A primary color");
-
   //   } else {
-
   //     Serial.println("Something else");
-
   //   }
 
   // Serial.print("Feelin Lucky");
