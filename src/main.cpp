@@ -5,97 +5,114 @@
 #define DATA_PIN 3
 CRGB leds[NUM_LEDS];
 
-int redValue = 0;
-int inPin = 5;
-int ledPin = 13;
-int val = 0;
-// put function declarations here:
-int myFunction(int, int);
-String getUserInput();
+int brightValue = 0;
 
-void setup() {
-  // put your setup code here, to run once:
+// int counter = 0;
+bool increasing = true;
+
+// int inPin = 5;
+// int ledPin = 13;
+// int val = 0;
+// put function declarations here:
+// int myFunction(int, int);
+// String getUserInput();
+
+void setup()
+{
 
   // LED_BUILTIN = pin 13, built in LED
   pinMode(LED_BUILTIN, OUTPUT);
-  FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS); 
+  FastLED.addLeds<WS2811, DATA_PIN, BRG>(leds, NUM_LEDS);
 
-  pinMode(pin_button, INPUT_PULLUP);
+  // pinMode(pin_button, INPUT_PULLUP);
   Serial.begin(9600);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+
   // digitalWrite(LED_BUILTIN, HIGH);
   // delay(1000);
   // digitalWrite(13, LOW);
   // delay(1000);
 
-// val = digitalRead(inPin);
-// digitalWrite(ledPin, val);
+  // val = digitalRead(inPin);
+  // digitalWrite(ledPin, val);
 
-    // leds[0] = CRGB( 50, 100, 150); 
-    // leds[1] = CRGB::Red;
-    // FastLED.show(); 
-    // delay(2000);
-    // leds[0] = CRGB::Black;
-    // leds[1] = CRGB::Black; 
-    // FastLED.show(); 
-    // delay(2000);
+  // leds[0] = CRGB( 50, 100, 150);
+  // leds[1] = CRGB::Red;
+  // FastLED.show();
+  // delay(2000);
+  // leds[0] = CRGB::Black;
+  // leds[1] = CRGB::Black;
+  // FastLED.show();
+  // delay(2000);
 
-  leds[0] = CRGB( redValue, 0, 0);
+  leds[0] = CHSV(HUE_RED, 255, brightValue);
+  leds[1] = CHSV(HUE_GREEN, 255, brightValue);
+  leds[2] = CHSV(HUE_BLUE, 255, brightValue);
+  leds[3] = CHSV(HUE_RED, 255, brightValue);
+  leds[4] = CHSV(HUE_GREEN, 255, brightValue);
+  leds[4] = CHSV(HUE_BLUE, 255, brightValue);
   FastLED.show();
   delay(100);
 
-  redValue ++;
-
-  if(redValue > 150){
-    redValue = 0;
-  }
-
-
-//   Serial.println("Enter data:");
-
-//   while (Serial.available() == 0) {}     //wait for data available
-
-// String teststr = getUserInput();
-
-//   if (teststr == "red" || teststr == "blue" || teststr == "yellow") {
-
-//     Serial.println("A primary color");
-
-//   } else {
-
-//     Serial.println("Something else");
-
-//   }
-
-    
-  // Serial.print("Feelin Lucky");
-  // Serial.println(" Punk?");
-
-}
-
-String getUserInput(){
-  String teststr = String();  //read until timeout
-  while (true) {
-    if (Serial.available() >0){
-      char userPressed = char(Serial.read());
-
-      if(userPressed == '\n') {
-        break;
-      } else {
-       teststr += userPressed;
-      }
+  if (increasing)
+  {
+    brightValue++;
+    if (brightValue == 150)
+    {
+      increasing = false;
     }
   }
-    teststr.trim();                        // remove any \r \n whitespace at the end of the String
-  Serial.println(teststr);
-  return teststr;
+  else
+  {
+    brightValue--;
+    if (brightValue == 0)
+    {
+      increasing = true;
+    }
+  }
+
+  //   Serial.println("Enter data:");
+
+  //   while (Serial.available() == 0) {}     //wait for data available
+
+  // String teststr = getUserInput();
+
+  //   if (teststr == "red" || teststr == "blue" || teststr == "yellow") {
+
+  //     Serial.println("A primary color");
+
+  //   } else {
+
+  //     Serial.println("Something else");
+
+  //   }
+
+  // Serial.print("Feelin Lucky");
+  // Serial.println(" Punk?");
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
-}
+// String getUserInput(){
+//   String teststr = String();  //read until timeout
+//   while (true) {
+//     if (Serial.available() >0){
+//       char userPressed = char(Serial.read());
 
+//       if(userPressed == '\n') {
+//         break;
+//       } else {
+//        teststr += userPressed;
+//       }
+//     }
+//   }
+//     teststr.trim();                        // remove any \r \n whitespace at the end of the String
+//   Serial.println(teststr);
+//   return teststr;
+// }
+
+// // put function definitions here:
+// int myFunction(int x, int y) {
+//   return x + y;
+// }
