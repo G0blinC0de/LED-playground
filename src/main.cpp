@@ -5,9 +5,10 @@
 #define DATA_PIN 3
 CRGB leds[NUM_LEDS];
 
-int brightValue = 0;
-
+int brightValue = 255;
+int counter = 0;
 bool increasing = true;
+bool buttonPressed = false;
 
 // int inPin = 5;
 // int ledPin = 13;
@@ -24,12 +25,48 @@ void setup()
   pinMode(LED_BUILTIN, OUTPUT);
   FastLED.addLeds<WS2811, DATA_PIN, BRG>(leds, NUM_LEDS);
 
-  // pinMode(pin_button, INPUT_PULLUP);
+  pinMode(pin_button, INPUT_PULLUP);
   Serial.begin(9600);
 }
 
 void loop()
 {
+    if (digitalRead(pin_button) == LOW) {
+        // Debounce the button
+        delay(50);
+        if (digitalRead(pin_button) == LOW && !buttonPressed) {
+            buttonPressed = true;
+            counter++;
+            if (counter > 5) {
+                counter = 0;
+            }
+        }
+    } else {
+        buttonPressed = false;
+    }
+FastLED.clear();
+    switch (counter) {
+        case 0:
+            leds[0] = CHSV(HUE_RED, 255, brightValue);
+            break;
+        case 1:
+            leds[1] = CHSV(HUE_GREEN, 255, brightValue);
+            break;
+        case 2:
+            leds[2] = CHSV(HUE_BLUE, 255, brightValue);
+            break;
+        case 3:
+            leds[3] = CHSV(HUE_RED, 255, brightValue);
+            break;
+        case 4:
+            leds[4] = CHSV(HUE_GREEN, 255, brightValue);
+            break;
+        case 5:
+            leds[5] = CHSV(HUE_BLUE, 255, brightValue);
+            break;
+    }
+    FastLED.show();
+    delay(100);
 
 // Built-In LED Blink on and off
   // digitalWrite(LED_BUILTIN, HIGH);
