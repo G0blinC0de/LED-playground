@@ -9,7 +9,7 @@ int brightValue = 255;
 unsigned int counter = 0;
 bool increasing = true;
 bool buttonPressed = false;
-
+void lightPattern();
 // int inPin = 5;
 // int ledPin = 13;
 // int val = 0;
@@ -31,14 +31,17 @@ void setup()
 void loop()
 {
   if (digitalRead(pin_button) == LOW)
+  {
+    delay(50);
+    if (digitalRead(pin_button) == LOW && !buttonPressed)
     {
-      delay(50);
-      if (digitalRead(pin_button) == LOW && !buttonPressed)
+      buttonPressed = true;
+      if (buttonPressed = true)
       {
-        buttonPressed = true;
         lightPattern();
       }
     }
+  }
 }
 
 void lightPattern()
@@ -71,6 +74,8 @@ void lightPattern()
   FastLED.show();
   delay(500);
   FastLED.clear();
+  FastLED.show();
+  buttonPressed = false;
 }
 
 // -- SEQUENCE LOOP ON BUTTON PRESS --
