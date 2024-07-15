@@ -9,6 +9,7 @@ int brightValue = 255;
 unsigned int counter = 0;
 bool increasing = true;
 bool buttonPressed = false;
+bool stopPattern = false;
 void lightPattern();
 // int inPin = 5;
 // int ledPin = 13;
@@ -33,48 +34,38 @@ void loop()
   if (digitalRead(pin_button) == LOW)
   {
     delay(50);
-    if (digitalRead(pin_button) == LOW && !buttonPressed)
+    if (digitalRead(pin_button) == LOW)
     {
-      buttonPressed = true;
-      if (buttonPressed = true)
+      if (!buttonPressed)
       {
+        buttonPressed = true;
+        stopPattern = false;
         lightPattern();
       }
+      else
+      {
+        stopPattern = true;
+      }
+      delay(300);
     }
   }
 }
 
 void lightPattern()
 {
-  leds[0] = CHSV(HUE_RED, 255, brightValue);
-  FastLED.show();
-  delay(500);
-  FastLED.clear();
-  leds[1] = CHSV(HUE_GREEN, 255, brightValue);
-  FastLED.show();
-  delay(500);
-  FastLED.clear();
-  leds[2] = CHSV(HUE_BLUE, 255, brightValue);
-  FastLED.show();
-  delay(500);
-  FastLED.clear();
-  leds[3] = CHSV(HUE_RED, 255, brightValue);
-  FastLED.show();
-  delay(500);
-  FastLED.clear();
-  leds[4] = CHSV(HUE_GREEN, 255, brightValue);
-  FastLED.show();
-  delay(500);
-  FastLED.clear();
-  leds[5] = CHSV(HUE_BLUE, 255, brightValue);
-  FastLED.show();
-  delay(500);
-  FastLED.clear();
-  leds[6] = CHSV(HUE_RED, 255, brightValue);
-  FastLED.show();
-  delay(500);
-  FastLED.clear();
-  FastLED.show();
+  for (int i = 0; i < NUM_LEDS; i++)
+  {
+    if (stopPattern)
+    {
+      buttonPressed = false;
+      return;
+    }
+    leds[i] = CHSV(HUE_RED + (i * 32), 255, brightValue);
+    FastLED.show();
+    delay(500);
+    FastLED.clear();
+    FastLED.show();
+  }
   buttonPressed = false;
 }
 
