@@ -29,6 +29,7 @@ void setup()
   Serial.begin(9600);
 }
 
+// ~~ Single Button Press - Pattern Display --
 void loop()
 {
   if (digitalRead(pin_button) == LOW)
